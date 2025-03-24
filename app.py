@@ -34,13 +34,19 @@ while True:
         img_pixels = image.img_to_array(roi_gray)
         img_pixels = np.expand_dims(img_pixels, axis=0)
         img_pixels /= 255
-        predictions = model.predict(img_pixels)         
-        max_index = np.argmax(predictions[0]) # find max indexed array
+      
+        predictions = model.predict(img_pixels)
+      # find max indexed array
+        max_index = np.argmax(predictions[0]) 
+      
         emotions = ('angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral')
         predicted_emotion = emotions[max_index]
+      
         cv2.putText(test_img, predicted_emotion, (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        resized_img = cv2.resize(test_img, (1000, 700))
-        cv2.imshow('Facial emotion analysis ', resized_img)
+      
+    resized_img = cv2.resize(test_img, (1000, 700))
+    cv2.imshow('Facial emotion analysis ', resized_img)
+
     if cv2.waitKey(10) == ord('q'):  # wait until 'q' key is pressed
         break
 
